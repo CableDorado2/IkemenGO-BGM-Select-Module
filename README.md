@@ -7,6 +7,8 @@ Tested in Ikemen GO: **v0.98.2**, **v0.99.0** and **2024-08-14 Nightly Build**.
 - **Random** Option will select a random music stored in "**./sound**" directory.
 - Custom BGM will show all the sounds that you have stored in the "**./sound**" directory and you can use them for stage selected.
 
+https://github.com/user-attachments/assets/22595272-1685-47e7-ab48-62f848a1dcc6
+
 ##  _Installation:_
 1- Extract archive content into "**./external/mods**" directory
 
