@@ -1,6 +1,6 @@
 # IkemenGO-BGM-Select-Module
 Ikemen Go External Module that adds BGM Select to Stage Select Menu
-Tested in Ikemen GO v0.98.2, 0.99.0 and Nightly Build
+Tested in Ikemen GO **v0.98.2**, **v0.99.0** and **2024-08-14 Nightly Build**
 
 - **Auto** Option works like stage select default song assignment (Uses select.def or stage.def music added).
 - **Random** Option will select a random music stored in "**./sound**" directory.
