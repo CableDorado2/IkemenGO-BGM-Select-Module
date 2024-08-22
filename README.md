@@ -15,6 +15,8 @@ https://github.com/user-attachments/assets/22595272-1685-47e7-ab48-62f848a1dcc6
 2- IMPORTANT! **HOW TO FIX bgmSelect.lua:124** error:
 GO TO "**./external/script/start.lua**" AND FOR "**local stageListNo = 0**"
 remove "**local**" and save the file to that stage select works with this module...
+![Fix 124 Error](https://github.com/user-attachments/assets/993dea42-5d52-49cc-a120-9486c709ec74)
+
 
 3- New SYSTEM.DEF parameters assignments in [Select Info] Section:
 >;BGM Select
