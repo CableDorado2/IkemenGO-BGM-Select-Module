@@ -1,5 +1,5 @@
-# Ikemen GO BGM Select Module
-External Module for Ikemen GO Engine that adds BGM Select to Stage Select Menu.
+# Ikemen GO - BGM Select Module
+External Module for [**Ikemen GO Engine**](https://github.com/ikemen-engine/Ikemen-GO) that adds BGM Select to Stage Select Menu.
 Tested in Ikemen GO: **v0.98.2**, **v0.99.0** and **2024-08-14 Nightly Build**
 
 - **Auto** Option works like stage select default song assignment (Uses select.def or stage.def music added).
