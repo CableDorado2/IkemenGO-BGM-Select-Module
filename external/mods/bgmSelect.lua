@@ -1,6 +1,6 @@
 --[[	  BGM SELECT MODULE
 =========================================
-Version: 1.0
+Version: 1.0.1
 Author: Cable Dorado 2 (CD2)
 Tested on: IKEMEN GO v0.98.2, v0.99.0 and 2024-08-14 Nightly Build
 Description:
@@ -151,6 +151,11 @@ function start.f_stageMenu() --Copy of Stage Menu function to make modifications
 			musicSelect = false
 		end
 	end
+	--Reset BGM Select (Mainly to avoid desync in online)
+	if esc() or main.f_input(main.t_players, {'m'}) then
+		musicListNo = 0
+		musicSelect = false
+	end
 	if n ~= stageListNo and stageListNo > 0 then
 		animReset(main.t_selStages[main.t_selectableStages[stageListNo]].anim_data)
 		animUpdate(main.t_selStages[main.t_selectableStages[stageListNo]].anim_data)
@@ -297,6 +302,6 @@ function start.f_setMusic(num, data) --Copy of music assignment function to make
 		end
 	end
 	--Reset BGM Select (Mainly to avoid desync in online)
-	musicListNo = 0
+	--musicListNo = 0
 	musicSelect = false
 end
