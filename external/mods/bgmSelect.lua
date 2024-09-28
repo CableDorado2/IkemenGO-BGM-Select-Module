@@ -1,11 +1,11 @@
---[[	  BGM SELECT MODULE
-=========================================
-Version: 1.0.1
+--[[	   				BGM SELECT MODULE
+===================================================================
+Version: 1.1
 Author: Cable Dorado 2 (CD2)
-Tested on: IKEMEN GO v0.98.2, v0.99.0 and 2024-08-14 Nightly Build
+Tested on: IKEMEN GO v0.98.2, v0.99.0 and 2024-09-25 Nightly Build
 Description:
-Adds BGM Select to Stage Select Menu
-=========================================
+Adds BGM Select for Round 1 to Stage Select Menu
+===================================================================
 ]]
 
 --[[
@@ -218,6 +218,8 @@ function start.f_setMusic(num, data) --Copy of music assignment function to make
 	start.bgmround = 0
 	start.t_music = {}
 	local side = 2
+	local soundtrack = nil
+	local bgmType = "auto"
 	for _, v in ipairs({'music', 'musicfinal', 'musiclife', 'musicvictory', 'musicvictory'}) do
 		if start.t_music[v] == nil then
 			start.t_music[v] = {}
@@ -230,33 +232,21 @@ function start.f_setMusic(num, data) --Copy of music assignment function to make
 		elseif not gamemode('demo') or motif.demo_mode.fight_playbgm == 1 then
 			--AUTO BGM
 			if not main.stageMenu or (main.stageMenu and musicListNo == 0) then
-				-- music assigned as character param
-				if (main.charparam.music or (v == 'musicvictory' and main.victoryScreen)) and start.f_getCharData(start.p[side].t_selected[1].ref)[v] ~= nil then
-					t_ref = start.f_getCharData(start.p[side].t_selected[1].ref)[v]
-				-- music assigned as stage param
-				elseif main.t_selStages[num] ~= nil and main.t_selStages[num][v] ~= nil then
-					t_ref = main.t_selStages[num][v]
-				end
+				
 			else --Stage Select Enabled
-				local soundtrack = t_selMusic[musicListNo].bgmfile --CUSTOM BGM
-				if musicListNo == #t_selMusic then --RANDOM BGM
-					if #t_bgmList == 0 then --If there is not custom songs added in sound folder
-						soundtrack = ""
-					else --If there are songs loaded, select one at random
-						soundtrack = t_bgmList[math.random(1, #t_bgmList)]
-					end
-				end
-				--Generate table with Music Data
-				t_ref = {
-					[1] = { --Round 1 Music
-						[1] = {bgmusic = (soundtrack), bgmvolume = (100), bgmloopstart = (0), bgmloopend = (0)}
-					}
-				}
+				bgmType = "custom"
+			end
+			-- music assigned as character param
+			if (main.charparam.music or (v == 'musicvictory' and main.victoryScreen)) and start.f_getCharData(start.p[side].t_selected[1].ref)[v] ~= nil then
+				t_ref = start.f_getCharData(start.p[side].t_selected[1].ref)[v]
+			-- music assigned as stage param
+			elseif main.t_selStages[num] ~= nil and main.t_selStages[num][v] ~= nil then
+				t_ref = main.t_selStages[num][v]
 			end
 		end
 		-- append t_music table
 		if t_ref ~= nil then
-			if main.debugLog then main.f_printTable(t_ref, 'debug/t_stageSong.txt') end
+			if main.debugLog then main.f_printTable(t_ref, 'debug/t_stageSongRef.txt') end
 			-- musicX tracks are nested using round numbers as table keys
 			if v == 'music' then
 				for k2, v2 in pairs(t_ref) do
@@ -301,7 +291,20 @@ function start.f_setMusic(num, data) --Copy of music assignment function to make
 			start.t_music[k] = v
 		end
 	end
+	--Generate table with custom Music Data
+	if bgmType == "custom" then
+		soundtrack = t_selMusic[musicListNo].bgmfile --CUSTOM BGM
+		if musicListNo == #t_selMusic then --RANDOM BGM
+			if #t_bgmList == 0 then --If there is not custom songs added in sound folder
+				soundtrack = ""
+			else --If there are songs loaded, select one at random
+				soundtrack = t_bgmList[math.random(1, #t_bgmList)]
+			end
+		end
+		start.t_music.music[1] = {bgmusic = (soundtrack), bgmvolume = (100), bgmloopstart = (0), bgmloopend = (0)} --Round 1 Music
+	end
+	if main.debugLog then main.f_printTable(start.t_music, 'debug/t_stageSong.txt') end
 	--Reset BGM Select (Mainly to avoid desync in online)
-	--musicListNo = 0
+	musicListNo = 0
 	musicSelect = false
 end
